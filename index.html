@@ -6,33 +6,62 @@
   <title>User Profile - PII Disclosure</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e9eff1;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
+
     .container {
-      max-width: 800px;
-      margin: auto;
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
+      width: 100%;
+      max-width: 500px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
-      color: #333;
     }
-    .user-info {
-      background-color: #f9f9f9;
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 80%;
       padding: 10px;
-      margin: 20px 0;
-      border-radius: 5px;
-      color: #333;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
     }
-    .hidden-flag {
-      margin-top: 10px;
-      color: #555;
-      font-size: 0.9em;
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .user-info {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      color: #444;
+      font-size: 1rem;
     }
   </style>
 </head>
@@ -41,17 +70,16 @@
   <div class="container">
     <h1>User Profile</h1>
     <form action="" method="GET">
-      <label for="username">Enter your username:</label>
       <input type="text" id="username" name="username" placeholder="Enter username" required>
+      <br>
       <button type="submit">Submit</button>
     </form>
 
     <div class="user-info" id="user-info">
-      <!-- This section will display the PII -->
       <p>Welcome, <span id="user-name"></span>!</p>
       <p>Your email: <span id="user-email"></span></p>
       <p>Your phone: <span id="user-phone"></span></p>
-      <p class="hidden-flag">Encrypted password: <code>84d961568a65073a3bcf0eb216b2a576</code></p>
+      <p>Encrypted flag: <code>834dba90c11aae69438e4335218908fd</code></p>
     </div>
   </div>
 
@@ -59,7 +87,6 @@
     const params = new URLSearchParams(window.location.search);
     const username = params.get("username");
 
-    // Simulating a sensitive data leak
     const userData = {
       "john_doe": { email: "john.doe@example.com", phone: "+1234567890" },
       "alice_smith": { email: "alice.smith@example.com", phone: "+9876543210" }
@@ -70,7 +97,7 @@
       document.getElementById("user-email").textContent = userData[username].email;
       document.getElementById("user-phone").textContent = userData[username].phone;
     } else {
-      document.getElementById("user-info").innerHTML = "<p>Invalid username. Try again.</p>";
+      document.getElementById("user-info").innerHTML = "<p style='color: red;'>Invalid username. Try again.</p>";
     }
   </script>
 
