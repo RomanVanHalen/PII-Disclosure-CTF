@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - PII Disclosure</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .user-info {
+      background-color: #f9f9f9;
+      padding: 10px;
+      margin: 20px 0;
+      border-radius: 5px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>User Profile</h1>
+    <form action="" method="GET">
+      <label for="username">Enter your username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" required>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="user-info" id="user-info">
+      <!-- This section will display the PII -->
+      <p>Welcome, <span id="user-name"></span>!</p>
+      <p>Your email: <span id="user-email"></span></p>
+      <p>Your phone: <span id="user-phone"></span></p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get("username");
+
+    // Simulating a sensitive data leak
+    const userData = {
+      "john_doe": { email: "john.doe@example.com", phone: "+1234567890" },
+      "alice_smith": { email: "alice.smith@example.com", phone: "+9876543210" }
+    };
+
+    if (username && userData[username]) {
+      document.getElementById("user-name").textContent = username;
+      document.getElementById("user-email").textContent = userData[username].email;
+      document.getElementById("user-phone").textContent = userData[username].phone;
+    } else {
+      document.getElementById("user-info").innerHTML = "<p>Invalid username. Try again.</p>";
+    }
+  </script>
+
+</body>
+</html>
